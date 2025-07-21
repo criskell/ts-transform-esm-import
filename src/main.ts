@@ -45,12 +45,23 @@ function importExportVisitor(
         let importPath = '';
         if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node))
             && node.moduleSpecifier && positionIsReal(node.pos) && positionIsReal(node.end)) {
-            const importPathWithQuotes = node.moduleSpecifier.getText(sf);
-            importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+            if (ts.isStringLiteral(node.moduleSpecifier)) {
+                importPath = node.moduleSpecifier.text;
+            } else {
+                const importPathWithQuotes = node.moduleSpecifier.getText(sf);
+                importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+            }
+            
         } else if (helper.isDynamicImport(node)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const importPathWithQuotes = node.arguments[0]!.getText(sf);
-            importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+            const firstArg = node.arguments[0]!;
+            
+            if (ts.isStringLiteral(firstArg)) {
+                importPath = firstArg.text;
+            } else {
+                const importPathWithQuotes = firstArg.getText(sf);
+                importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+            }
         } else if (
             ts.isImportTypeNode(node) &&
             ts.isLiteralTypeNode(node.argument) &&

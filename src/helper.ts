@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 import * as fs from 'fs';
 
 export function pathWithExt(s: string, ext: string): string {
-  if (path.extname(s) === `.${ext}`) {
+  if (path.extname(s)) {
     return s;
   }
   return `${s}.${ext}`;
