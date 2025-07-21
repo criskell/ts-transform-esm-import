@@ -3,7 +3,19 @@ import * as ts from 'typescript';
 import * as fs from 'fs';
 
 export function pathWithExt(s: string, ext: string): string {
-  if (path.extname(s)) {
+  const extname = path.extname(s);
+  if (
+    extname === '.js' ||
+    extname === '.ts' ||
+    extname === '.tsx' ||
+    extname === '.jsx' ||
+    extname === '.mjs' ||
+    extname === '.cjs' ||
+    extname === '.mts' ||
+    extname === '.cts' ||
+    extname === '.json' ||
+    extname === `.${ext}`
+  ) {
     return s;
   }
   return `${s}.${ext}`;
