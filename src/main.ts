@@ -51,11 +51,9 @@ function importExportVisitor(
                 const importPathWithQuotes = node.moduleSpecifier.getText(sf);
                 importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
             }
-            
         } else if (helper.isDynamicImport(node)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const firstArg = node.arguments[0]!;
-            
             if (ts.isStringLiteral(firstArg)) {
                 importPath = firstArg.text;
             } else {
