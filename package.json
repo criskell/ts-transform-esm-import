@@ -1,6 +1,6 @@
 {
   "name": "@criskell/ts-transform-esm-import",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rewrite TypeScript import paths to ES Modules import paths",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
